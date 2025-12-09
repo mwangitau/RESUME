@@ -131,8 +131,8 @@ When adding new templates, ensure they:
 
 ## Resources
 
-- [ATS Resume Scanning Guide](https://www.jobscan.co/ats-resume-guide)
-- [HTML Resume Best Practices](https://www.w3.org/Style/Examples/007/print.en.html)
+- [ATS Resume Scanning Guide](https://careerservices.uic.edu/wp-content/uploads/sites/26/2017/08/Ensure-Your-Resume-Is-Read-ATS.pdf)
+- [HTML Resume Best Practices]([https://www.w3.org/Style/Examples/007/print.en.html](https://www.w3schools.com/howto/howto_website_create_resume.asp))
 - Common ATS Systems: Taleo, Workday, Greenhouse, Lever
 
 ## License
