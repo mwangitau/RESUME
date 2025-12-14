@@ -3,11 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[YOUR NAME] - Resume</title>
+    <title>Modern Minimal Resume Builder</title>
     <style>
-        /* Modern Minimal ATS-Friendly Resume */
-        /* Simple, clean design optimized for ATS parsing */
-        
         * {
             margin: 0;
             padding: 0;
@@ -15,7 +12,571 @@
         }
 
         body {
-            font-family: 'Calibri', 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: #bbb;
+        }
+
+        .builder-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .form-section, .preview-section {
+            background: #fff;
+            color: #333;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+        }
+
+        .form-section {
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .preview-section {
+            position: sticky;
+            top: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        h2 {
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1a1a1a;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .experience-item, .education-item {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .add-button, .remove-button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .add-button {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .remove-button {
+            background: #dc3545;
+            color: white;
+            float: right;
+        }
+
+        .download-btn {
+            width: 100%;
+            padding: 15px;
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .download-btn:hover {
+            background: #2a2a2a;
+        }
+
+        /* Modern Minimal Preview Styles */
+        #resume-preview {
+            font-family: 'Calibri', Arial, sans-serif;
+            line-height: 1.7;
+            color: #2c3e50;
+        }
+
+        #resume-preview .header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #2c3e50;
+        }
+
+        #resume-preview h1 {
+            font-size: 28px;
+            font-weight: 300;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+            color: #2c3e50;
+        }
+
+        #resume-preview .tagline {
+            font-size: 14px;
+            color: #7f8c8d;
+            font-weight: 300;
+            margin-bottom: 12px;
+        }
+
+        #resume-preview .contact-info {
+            font-size: 12px;
+            color: #7f8c8d;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        #resume-preview .section {
+            margin-bottom: 25px;
+        }
+
+        #resume-preview .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        #resume-preview .item {
+            margin-bottom: 20px;
+        }
+
+        #resume-preview .item-title {
+            font-weight: 600;
+            font-size: 15px;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+
+        #resume-preview .item-meta {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+
+        #resume-preview .separator {
+            margin: 0 8px;
+            color: #bdc3c7;
+        }
+
+        #resume-preview ul {
+            margin-left: 20px;
+            font-size: 13px;
+            color: #34495e;
+        }
+
+        #resume-preview li {
+            margin-bottom: 6px;
+            line-height: 1.6;
+        }
+
+        #resume-preview .skills-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        #resume-preview .skill-group-title {
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #2c3e50;
+            margin-bottom: 6px;
+        }
+
+        #resume-preview .skill-list {
+            font-size: 12px;
+            color: #34495e;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 1024px) {
+            .builder-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-section {
+                position: relative;
+                top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Modern Minimal Resume Builder</h1>
+            <p>Create your modern, ATS-friendly resume</p>
+        </header>
+
+        <div class="builder-layout">
+            <!-- FORM SECTION -->
+            <div class="form-section">
+                <h2>Your Information</h2>
+
+                <!-- Contact Information -->
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" id="fullName" placeholder="John Doe">
+                </div>
+
+                <div class="form-group">
+                    <label>Professional Tagline</label>
+                    <input type="text" id="tagline" placeholder="Full-Stack Developer | React Specialist">
+                </div>
+
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="email" placeholder="john.doe@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" id="phone" placeholder="+1 (555) 123-4567">
+                </div>
+
+                <div class="form-group">
+                    <label>LinkedIn</label>
+                    <input type="text" id="linkedin" placeholder="linkedin.com/in/johndoe">
+                </div>
+
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" id="location" placeholder="New York, NY">
+                </div>
+
+                <!-- Professional Summary -->
+                <h2 style="margin-top: 30px;">Profile</h2>
+                <div class="form-group">
+                    <label>Professional Summary</label>
+                    <textarea id="summary" placeholder="Write 2-3 sentences about your expertise and what makes you unique..."></textarea>
+                </div>
+
+                <!-- Experience Section -->
+                <h2 style="margin-top: 30px;">Work Experience</h2>
+                <div id="experience-container"></div>
+                <button class="add-button" onclick="addExperience()">+ Add Experience</button>
+
+                <!-- Education Section -->
+                <h2 style="margin-top: 30px;">Education</h2>
+                <div id="education-container"></div>
+                <button class="add-button" onclick="addEducation()">+ Add Education</button>
+
+                <!-- Skills -->
+                <h2 style="margin-top: 30px;">Skills</h2>
+                <div class="form-group">
+                    <label>Programming Languages</label>
+                    <input type="text" id="skill1" placeholder="Python, JavaScript, Java, etc.">
+                </div>
+                <div class="form-group">
+                    <label>Frameworks & Libraries</label>
+                    <input type="text" id="skill2" placeholder="React, Node.js, Django, etc.">
+                </div>
+                <div class="form-group">
+                    <label>Tools & Technologies</label>
+                    <input type="text" id="skill3" placeholder="Git, Docker, AWS, etc.">
+                </div>
+                <div class="form-group">
+                    <label>Professional Skills</label>
+                    <input type="text" id="skill4" placeholder="Leadership, Agile, etc.">
+                </div>
+
+                <button class="download-btn" onclick="downloadResume()">Download Resume as HTML</button>
+            </div>
+
+            <!-- PREVIEW SECTION -->
+            <div class="preview-section">
+                <h2>Live Preview</h2>
+                <div id="resume-preview"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let experienceCount = 0;
+        let educationCount = 0;
+
+        window.onload = function() {
+            addExperience();
+            addEducation();
+            updatePreview();
+
+            document.querySelectorAll('input, textarea').forEach(input => {
+                input.addEventListener('input', updatePreview);
+            });
+        };
+
+        function addExperience() {
+            experienceCount++;
+            const container = document.getElementById('experience-container');
+            const expDiv = document.createElement('div');
+            expDiv.className = 'experience-item';
+            expDiv.id = `exp-${experienceCount}`;
+            expDiv.innerHTML = `
+                <button class="remove-button" onclick="removeElement('exp-${experienceCount}')">Remove</button>
+                <div class="form-group">
+                    <label>Job Title</label>
+                    <input type="text" class="exp-title" placeholder="Senior Developer">
+                </div>
+                <div class="form-group">
+                    <label>Company</label>
+                    <input type="text" class="exp-company" placeholder="Tech Company Inc.">
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" class="exp-location" placeholder="San Francisco, CA">
+                </div>
+                <div class="form-group">
+                    <label>Start Date</label>
+                    <input type="text" class="exp-start" placeholder="Jan 2020">
+                </div>
+                <div class="form-group">
+                    <label>End Date</label>
+                    <input type="text" class="exp-end" placeholder="Present">
+                </div>
+                <div class="form-group">
+                    <label>Achievements (one per line)</label>
+                    <textarea class="exp-duties" placeholder="Architected platform serving 1M+ users&#10;Led team of 8 developers&#10;Reduced deployment time by 87%"></textarea>
+                </div>
+            `;
+            container.appendChild(expDiv);
+
+            expDiv.querySelectorAll('input, textarea').forEach(input => {
+                input.addEventListener('input', updatePreview);
+            });
+
+            updatePreview();
+        }
+
+        function addEducation() {
+            educationCount++;
+            const container = document.getElementById('education-container');
+            const eduDiv = document.createElement('div');
+            eduDiv.className = 'education-item';
+            eduDiv.id = `edu-${educationCount}`;
+            eduDiv.innerHTML = `
+                <button class="remove-button" onclick="removeElement('edu-${educationCount}')">Remove</button>
+                <div class="form-group">
+                    <label>Degree</label>
+                    <input type="text" class="edu-degree" placeholder="Bachelor of Science in Computer Science">
+                </div>
+                <div class="form-group">
+                    <label>Institution</label>
+                    <input type="text" class="edu-school" placeholder="State University">
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" class="edu-location" placeholder="Boston, MA">
+                </div>
+                <div class="form-group">
+                    <label>Graduation Year</label>
+                    <input type="text" class="edu-year" placeholder="2019">
+                </div>
+            `;
+            container.appendChild(eduDiv);
+
+            eduDiv.querySelectorAll('input').forEach(input => {
+                input.addEventListener('input', updatePreview);
+            });
+
+            updatePreview();
+        }
+
+        function removeElement(id) {
+            document.getElementById(id).remove();
+            updatePreview();
+        }
+
+        function updatePreview() {
+            const fullName = document.getElementById('fullName').value || '[Your Name]';
+            const tagline = document.getElementById('tagline').value || '[Your Professional Title]';
+            const email = document.getElementById('email').value || '[Email]';
+            const phone = document.getElementById('phone').value || '[Phone]';
+            const linkedin = document.getElementById('linkedin').value || '[LinkedIn]';
+            const location = document.getElementById('location').value || '[Location]';
+            const summary = document.getElementById('summary').value || '[Your professional summary]';
+
+            let html = `
+                <div class="header">
+                    <h1>${fullName}</h1>
+                    <div class="tagline">${tagline}</div>
+                    <div class="contact-info">
+                        <span>${email}</span>
+                        <span>${phone}</span>
+                        <span>${linkedin}</span>
+                        <span>${location}</span>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Profile</div>
+                    <p>${summary}</p>
+                </div>
+            `;
+
+            // Experience
+            const experiences = document.querySelectorAll('.experience-item');
+            if (experiences.length > 0) {
+                html += '<div class="section"><div class="section-title">Experience</div>';
+                experiences.forEach(exp => {
+                    const title = exp.querySelector('.exp-title').value;
+                    const company = exp.querySelector('.exp-company').value;
+                    const loc = exp.querySelector('.exp-location').value;
+                    const start = exp.querySelector('.exp-start').value;
+                    const end = exp.querySelector('.exp-end').value;
+                    const duties = exp.querySelector('.exp-duties').value;
+
+                    if (title || company) {
+                        html += `
+                            <div class="item">
+                                <div class="item-title">${title || '[Job Title]'}</div>
+                                <div class="item-meta">
+                                    <span>${company || '[Company]'}</span>
+                                    <span class="separator">•</span>
+                                    <span>${loc || '[Location]'}</span>
+                                    <span class="separator">•</span>
+                                    <span>${start || '[Start]'} - ${end || '[End]'}</span>
+                                </div>
+                                <ul>
+                        `;
+                        if (duties) {
+                            duties.split('\n').forEach(duty => {
+                                if (duty.trim()) {
+                                    html += `<li>${duty}</li>`;
+                                }
+                            });
+                        } else {
+                            html += '<li>[Your achievements]</li>';
+                        }
+                        html += '</ul></div>';
+                    }
+                });
+                html += '</div>';
+            }
+
+            // Education
+            const educations = document.querySelectorAll('.education-item');
+            if (educations.length > 0) {
+                html += '<div class="section"><div class="section-title">Education</div>';
+                educations.forEach(edu => {
+                    const degree = edu.querySelector('.edu-degree').value;
+                    const school = edu.querySelector('.edu-school').value;
+                    const loc = edu.querySelector('.edu-location').value;
+                    const year = edu.querySelector('.edu-year').value;
+
+                    if (degree || school) {
+                        html += `
+                            <div class="item">
+                                <div class="item-title">${degree || '[Degree]'}</div>
+                                <div class="item-meta">
+                                    <span>${school || '[School]'}</span>
+                                    <span class="separator">•</span>
+                                    <span>${loc || '[Location]'}</span>
+                                    <span class="separator">•</span>
+                                    <span>${year || '[Year]'}</span>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+                html += '</div>';
+            }
+
+            // Skills
+            const skill1 = document.getElementById('skill1').value;
+            const skill2 = document.getElementById('skill2').value;
+            const skill3 = document.getElementById('skill3').value;
+            const skill4 = document.getElementById('skill4').value;
+
+            if (skill1 || skill2 || skill3 || skill4) {
+                html += '<div class="section"><div class="section-title">Skills</div><div class="skills-container">';
+                if (skill1) html += `<div><div class="skill-group-title">Programming Languages</div><div class="skill-list">${skill1}</div></div>`;
+                if (skill2) html += `<div><div class="skill-group-title">Frameworks & Libraries</div><div class="skill-list">${skill2}</div></div>`;
+                if (skill3) html += `<div><div class="skill-group-title">Tools & Technologies</div><div class="skill-list">${skill3}</div></div>`;
+                if (skill4) html += `<div><div class="skill-group-title">Professional Skills</div><div class="skill-list">${skill4}</div></div>`;
+                html += '</div></div>';
+            }
+
+            document.getElementById('resume-preview').innerHTML = html;
+        }
+
+        function downloadResume() {
+            const previewContent = document.getElementById('resume-preview').innerHTML;
+            const fullName = document.getElementById('fullName').value || 'Resume';
+            
+            const fullHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${fullName} - Resume</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Calibri', Arial, sans-serif;
             line-height: 1.7;
             color: #2c3e50;
             max-width: 800px;
@@ -23,404 +584,109 @@
             padding: 50px 70px;
             background: #fff;
         }
-
-        /* Header Section */
         .header {
-            margin-bottom: 35px;
-            padding-bottom: 25px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
             border-bottom: 3px solid #2c3e50;
         }
-
-        .header h1 {
-            font-size: 32px;
+        h1 {
+            font-size: 28px;
             font-weight: 300;
             margin-bottom: 8px;
             letter-spacing: 2px;
             color: #2c3e50;
         }
-
-        .header .tagline {
-            font-size: 15px;
+        .tagline {
+            font-size: 14px;
             color: #7f8c8d;
             font-weight: 300;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
-
         .contact-info {
-            font-size: 13px;
+            font-size: 12px;
             color: #7f8c8d;
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 15px;
         }
-
-        .contact-info .contact-item {
-            display: inline-block;
-        }
-
-        /* Section Styles */
         .section {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
-
         .section-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            margin-bottom: 18px;
+            margin-bottom: 15px;
             color: #2c3e50;
             padding-bottom: 8px;
             border-bottom: 2px solid #ecf0f1;
         }
-
-        /* Professional Summary */
-        .summary {
-            font-size: 14px;
-            line-height: 1.8;
-            color: #34495e;
-        }
-
-        /* Experience & Education Items */
         .item {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
-
-        .item-header {
-            margin-bottom: 8px;
-        }
-
         .item-title {
             font-weight: 600;
-            font-size: 16px;
+            font-size: 15px;
             color: #2c3e50;
             margin-bottom: 4px;
         }
-
         .item-meta {
-            font-size: 13px;
+            font-size: 12px;
             color: #7f8c8d;
             margin-bottom: 10px;
         }
-
-        .item-meta .company {
-            font-weight: 500;
-            color: #34495e;
-        }
-
-        .item-meta .date {
-            font-style: italic;
-        }
-
-        .item-meta .separator {
+        .separator {
             margin: 0 8px;
             color: #bdc3c7;
         }
-
-        .item-description {
-            margin-left: 0;
-            font-size: 14px;
+        ul {
+            margin-left: 20px;
+            font-size: 13px;
             color: #34495e;
         }
-
-        .item-description li {
-            margin-bottom: 8px;
-            margin-left: 20px;
+        li {
+            margin-bottom: 6px;
             line-height: 1.6;
         }
-
-        /* Skills Section */
         .skills-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 15px;
         }
-
-        .skill-group {
-            margin-bottom: 15px;
-        }
-
         .skill-group-title {
             font-weight: 600;
-            font-size: 13px;
+            font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             color: #2c3e50;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
-
         .skill-list {
-            font-size: 13px;
+            font-size: 12px;
             color: #34495e;
             line-height: 1.7;
         }
-
-        /* Certifications */
-        .cert-item {
-            margin-bottom: 12px;
-        }
-
-        .cert-title {
-            font-weight: 600;
-            font-size: 14px;
-            color: #2c3e50;
-        }
-
-        .cert-meta {
-            font-size: 13px;
-            color: #7f8c8d;
-        }
-
-        /* Print Styles */
         @media print {
             body {
                 padding: 30px;
-                max-width: 100%;
             }
-            
-            .section {
-                page-break-inside: avoid;
-            }
-
-            .header {
-                border-bottom: 2px solid #2c3e50;
-            }
-        }
-
-        /* Instructions */
-        .instructions {
-            background: #fff9e6;
-            border: 2px dashed #f39c12;
-            padding: 20px;
-            margin-bottom: 35px;
-            font-size: 13px;
-            border-radius: 5px;
-        }
-
-        .instructions strong {
-            color: #e67e22;
-        }
-
-        .instructions ul {
-            margin-left: 20px;
-            margin-top: 10px;
-        }
-
-        .instructions li {
-            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
-    
-    <!-- INSTRUCTIONS: Delete this entire section before finalizing -->
-    <div class="instructions">
-        <strong>📝 INSTRUCTIONS FOR USE:</strong>
-        <ul>
-            <li>Replace all text in [BRACKETS] with your actual information</li>
-            <li>Use Ctrl+F (Cmd+F on Mac) to quickly find all [BRACKETS]</li>
-            <li>Delete this yellow instruction box when you're done editing</li>
-            <li>To save as PDF: Press Ctrl+P (Cmd+P) and select "Save as PDF"</li>
-            <li>Keep descriptions concise and achievement-focused with metrics</li>
-        </ul>
-    </div>
+${previewContent}
+</body>
+</html>`;
 
-    <!-- HEADER / CONTACT INFORMATION -->
-    <header class="header">
-        <h1>[YOUR FULL NAME]</h1>
-        <div class="tagline">[Your Professional Title or Tagline]</div>
-        <div class="contact-info">
-            <span class="contact-item">[your.email@example.com]</span>
-            <span class="contact-item">[+1 (555) 123-4567]</span>
-            <span class="contact-item">[linkedin.com/in/yourprofile]</span>
-            <span class="contact-item">[City, State/Country]</span>
-        </div>
-    </header>
-
-    <!-- PROFESSIONAL SUMMARY -->
-    <section class="section">
-        <h2 class="section-title">Profile</h2>
-        <p class="summary">
-            [Write 2-3 compelling sentences that summarize your professional identity, core expertise, and unique value proposition. 
-            Focus on what makes you stand out and what you can deliver. Example: "Creative Full-Stack Developer with 6+ years 
-            building scalable web applications. Specialized in React, Node.js, and cloud architecture with a track record of 
-            reducing load times by 60% and improving user engagement by 45%. Passionate about clean code and user-centric design."]
-        </p>
-    </section>
-
-    <!-- PROFESSIONAL EXPERIENCE -->
-    <section class="section">
-        <h2 class="section-title">Experience</h2>
-
-        <div class="item">
-            <div class="item-header">
-                <div class="item-title">[Job Title]</div>
-                <div class="item-meta">
-                    <span class="company">[Company Name]</span>
-                    <span class="separator">•</span>
-                    <span class="location">[City, State]</span>
-                    <span class="separator">•</span>
-                    <span class="date">[Start Date] - [End Date or "Present"]</span>
-                </div>
-            </div>
-            <ul class="item-description">
-                <li>[Quantifiable achievement with specific metrics. Example: "Architected microservices platform serving 1M+ daily users, reducing response time by 40%"]</li>
-                <li>[Key responsibility showing impact. Example: "Led agile team of 8 developers through complete product redesign, launching 3 weeks ahead of schedule"]</li>
-                <li>[Technical accomplishment. Example: "Implemented CI/CD pipeline reducing deployment time from 2 hours to 15 minutes"]</li>
-                <li>[Business impact. Example: "Optimized database queries resulting in $50K annual savings in cloud costs"]</li>
-            </ul>
-        </div>
-
-        <div class="item">
-            <div class="item-header">
-                <div class="item-title">[Previous Job Title]</div>
-                <div class="item-meta">
-                    <span class="company">[Company Name]</span>
-                    <span class="separator">•</span>
-                    <span class="location">[City, State]</span>
-                    <span class="separator">•</span>
-                    <span class="date">[Start Date] - [End Date]</span>
-                </div>
-            </div>
-            <ul class="item-description">
-                <li>[Achievement with measurable results and business impact]</li>
-                <li>[Key project or initiative you led or contributed to significantly]</li>
-                <li>[Technical or process improvement with quantifiable outcomes]</li>
-                <li>[Collaboration or leadership accomplishment]</li>
-            </ul>
-        </div>
-
-        <div class="item">
-            <div class="item-header">
-                <div class="item-title">[Earlier Job Title]</div>
-                <div class="item-meta">
-                    <span class="company">[Company Name]</span>
-                    <span class="separator">•</span>
-                    <span class="location">[City, State]</span>
-                    <span class="separator">•</span>
-                    <span class="date">[Start Date] - [End Date]</span>
-                </div>
-            </div>
-            <ul class="item-description">
-                <li>[Key accomplishment or responsibility]</li>
-                <li>[Another significant achievement]</li>
-                <li>[Relevant technical or business contribution]</li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- EDUCATION -->
-    <section class="section">
-        <h2 class="section-title">Education</h2>
-
-        <div class="item">
-            <div class="item-header">
-                <div class="item-title">[Degree Name], [Major/Field of Study]</div>
-                <div class="item-meta">
-                    <span class="company">[University Name]</span>
-                    <span class="separator">•</span>
-                    <span class="location">[City, State]</span>
-                    <span class="separator">•</span>
-                    <span class="date">[Graduation Year]</span>
-                </div>
-            </div>
-            <ul class="item-description">
-                <li>[Optional: Include if GPA is 3.5+ - "GPA: 3.8/4.0"]</li>
-                <li>[Optional: Relevant honors - "Dean's List (All Semesters), Summa Cum Laude"]</li>
-                <li>[Optional: Key coursework - "Relevant Coursework: Advanced Algorithms, AI/ML, Distributed Systems"]</li>
-            </ul>
-        </div>
-
-        <!-- Additional degree if applicable -->
-        <div class="item">
-            <div class="item-header">
-                <div class="item-title">[Additional Degree or Certification]</div>
-                <div class="item-meta">
-                    <span class="company">[Institution Name]</span>
-                    <span class="separator">•</span>
-                    <span class="date">[Year]</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SKILLS -->
-    <section class="section">
-        <h2 class="section-title">Skills</h2>
-        <div class="skills-container">
-            <div class="skill-group">
-                <div class="skill-group-title">[Category 1 - e.g., "Programming Languages"]</div>
-                <div class="skill-list">[Python, JavaScript, Java, C++, SQL, TypeScript]</div>
-            </div>
-            <div class="skill-group">
-                <div class="skill-group-title">[Category 2 - e.g., "Frameworks & Libraries"]</div>
-                <div class="skill-list">[React, Node.js, Django, Express, Next.js, FastAPI]</div>
-            </div>
-            <div class="skill-group">
-                <div class="skill-group-title">[Category 3 - e.g., "Tools & Technologies"]</div>
-                <div class="skill-list">[Git, Docker, Kubernetes, AWS, PostgreSQL, MongoDB]</div>
-            </div>
-            <div class="skill-group">
-                <div class="skill-group-title">[Category 4 - e.g., "Professional Skills"]</div>
-                <div class="skill-list">[Agile/Scrum, Leadership, Technical Writing, Code Review]</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CERTIFICATIONS (Optional) -->
-    <section class="section">
-        <h2 class="section-title">Certifications</h2>
-        
-        <div class="cert-item">
-            <div class="cert-title">[Certification Name]</div>
-            <div class="cert-meta">[Issuing Organization] • [Year Obtained or "Valid through YYYY"]</div>
-        </div>
-
-        <div class="cert-item">
-            <div class="cert-title">[Another Certification]</div>
-            <div class="cert-meta">[Issuing Organization] • [Year Obtained]</div>
-        </div>
-
-        <div class="cert-item">
-            <div class="cert-title">[Third Certification]</div>
-            <div class="cert-meta">[Issuing Organization] • [Year Obtained]</div>
-        </div>
-    </section>
-
-    <!-- PROJECTS (Optional - especially good for tech/developer roles) -->
-    <!-- Uncomment this section if you want to include projects
-    <section class="section">
-        <h2 class="section-title">Notable Projects</h2>
-
-        <div class="item">
-            <div class="item-header">
-                <div class="item-title">[Project Name]</div>
-                <div class="item-meta">
-                    <span class="date">[Date or Timeframe]</span>
-                </div>
-            </div>
-            <ul class="item-description">
-                <li>[Brief description of what the project does and your specific role]</li>
-                <li>[Technologies used and key technical challenges solved]</li>
-                <li>[Impact or results - users, performance metrics, or business value]</li>
-            </ul>
-        </div>
-
-        <div class="item">
-            <div class="item-header">
-                <div class="item-title">[Another Project]</div>
-                <div class="item-meta">
-                    <span class="date">[Date or Timeframe]</span>
-                </div>
-            </div>
-            <ul class="item-description">
-                <li>[Project description and your contribution]</li>
-                <li>[Technical stack and implementation details]</li>
-                <li>[Results or impact achieved]</li>
-            </ul>
-        </div>
-    </section>
-    -->
-
+            const blob = new Blob([fullHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${fullName.replace(/\s+/g, '_')}_Resume_Modern.html`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
 </body>
 </html>
